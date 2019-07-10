@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 
 import { RecipesService } from './recipes.service';
 import { CreateRecipeDto, Recipe } from './recipes.model';
@@ -15,5 +15,10 @@ export class RecipesController {
   @Get()
   getAll(): Promise<Recipe[]> {
     return this.recipesService.getAll();
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string): Promise<never | null> {
+    return this.recipesService.remove(id);
   }
 }

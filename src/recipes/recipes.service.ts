@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -21,6 +21,14 @@ export class RecipesService {
     return this.recipeModel.find()
       .populate({path: 'ingredients', model: this.ingredientModel})
       .exec();
+  }
+
+  async remove(id: string): Promise<never | null> {
+    const result = await this.recipeModel.deleteOne({_id: id}).exec();
+    if (result.n === 0) {
+      throw new NotFoundException('Could not find ingredient');
+    }
+    return null;
   }
 
 }
