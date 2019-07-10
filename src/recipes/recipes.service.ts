@@ -17,6 +17,23 @@ export class RecipesService {
     return newItem.save();
   }
 
+  async get(id: string): Promise<Recipe | never> {
+    let item: Recipe;
+
+    try {
+      item = await this.recipeModel.findById(id)
+        .populate({path: 'ingredients', model: this.ingredientModel})
+        .exec();
+    } catch (error) {
+      throw new NotFoundException('Could not find recipe.');
+    }
+    if (!item) {
+      throw new NotFoundException('Could not find recipe.');
+    }
+
+    return item;
+  }
+
   getAll(): Promise<Recipe[]> {
     return this.recipeModel.find()
       .populate({path: 'ingredients', model: this.ingredientModel})
