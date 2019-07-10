@@ -8,9 +8,7 @@ export class IngredientsController {
   constructor(private readonly ingredientsService: IngredientsService) {}
 
   @Post()
-  add(
-    @Body('title') title: string,
-  ): Promise<Ingredient> {
+  add(@Body('title') title: string): Promise<Ingredient> {
     return this.ingredientsService.add(
       title,
     );

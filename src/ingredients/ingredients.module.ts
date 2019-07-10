@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+
 import { IngredientsController } from './ingredients.controller';
 import { IngredientSchema } from './ingredient.model';
 import { IngredientsService } from './ingredients.service';

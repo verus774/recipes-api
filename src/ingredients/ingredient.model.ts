@@ -1,10 +1,15 @@
-import * as mongoose from 'mongoose';
+import { Document, Schema } from 'mongoose';
 
-export const IngredientSchema = new mongoose.Schema({
-  title: { type: String, required: true },
+export const IngredientSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+  },
 });
 
-export interface Ingredient extends mongoose.Document {
+export interface Ingredient extends Document {
   id: string;
   title: string;
 }
