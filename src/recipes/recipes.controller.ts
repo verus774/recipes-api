@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 
 import { RecipesService } from './recipes.service';
-import { CreateRecipeDto, Recipe } from './recipes.model';
+import { CreateRecipeDto, Recipe, UpdateRecipeDto } from './recipes.model';
 
 @Controller('recipes')
 export class RecipesController {
@@ -20,6 +20,11 @@ export class RecipesController {
   @Get()
   getAll(): Promise<Recipe[]> {
     return this.recipesService.getAll();
+  }
+
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() item: UpdateRecipeDto): Promise<Recipe | null> {
+    return this.recipesService.update(id, item);
   }
 
   @Delete(':id')

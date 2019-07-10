@@ -23,7 +23,7 @@ export class IngredientsController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() item: UpdateIngredientDto): Promise<Ingredient> {
+  async update(@Param('id') id: string, @Body() item: UpdateIngredientDto): Promise<Ingredient | null> {
     return this.ingredientsService.update(id, item);
   }
 

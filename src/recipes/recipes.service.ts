@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { CreateRecipeDto, Recipe } from './recipes.model';
+import { CreateRecipeDto, Recipe, UpdateRecipeDto } from './recipes.model';
 import { Ingredient } from '../ingredients/ingredient.model';
 
 @Injectable()
@@ -14,6 +14,8 @@ export class RecipesService {
 
   add(item: CreateRecipeDto): Promise<Recipe> {
     const newItem = new this.recipeModel(item);
+
+    // TODO: should return populated recipe
     return newItem.save();
   }
 
@@ -36,6 +38,12 @@ export class RecipesService {
 
   getAll(): Promise<Recipe[]> {
     return this.recipeModel.find()
+      .populate({path: 'ingredients', model: this.ingredientModel})
+      .exec();
+  }
+
+  async update(id: string, updateRecipeDto: UpdateRecipeDto): Promise<Recipe | null> {
+    return this.recipeModel.findByIdAndUpdate(id, updateRecipeDto, { new: true })
       .populate({path: 'ingredients', model: this.ingredientModel})
       .exec();
   }

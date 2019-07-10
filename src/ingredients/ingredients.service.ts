@@ -34,8 +34,8 @@ export class IngredientsService {
     return this.ingredientModel.find().exec();
   }
 
-  async update(id: string, updateIngredientDto: UpdateIngredientDto) {
-    return this.ingredientModel.findByIdAndUpdate(id, updateIngredientDto, { new: true });
+  async update(id: string, updateIngredientDto: UpdateIngredientDto): Promise<Ingredient | null> {
+    return this.ingredientModel.findByIdAndUpdate(id, updateIngredientDto, { new: true }).exec();
   }
 
   async remove(id: string): Promise<null> {

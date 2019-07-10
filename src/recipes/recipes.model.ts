@@ -26,3 +26,5 @@ export class CreateRecipeDto {
   readonly title: string;
   readonly ingredients: string[];
 }
+
+export type UpdateRecipeDto = Partial<CreateRecipeDto>;
