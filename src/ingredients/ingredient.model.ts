@@ -13,3 +13,7 @@ export interface Ingredient extends Document {
   id: string;
   title: string;
 }
+
+export class CreateIngredientDto {
+  readonly title: string;
+}

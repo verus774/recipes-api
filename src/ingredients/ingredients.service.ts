@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { Ingredient } from './ingredient.model';
+import { CreateIngredientDto, Ingredient } from './ingredient.model';
 
 @Injectable()
 export class IngredientsService {
@@ -10,10 +10,8 @@ export class IngredientsService {
     @InjectModel('Ingredient') private readonly ingredientModel: Model<Ingredient>,
   ) {}
 
-  add(title: string): Promise<Ingredient> {
-    const newItem = new this.ingredientModel({
-      title,
-    });
+  add(item: CreateIngredientDto): Promise<Ingredient> {
+    const newItem = new this.ingredientModel(item);
     return newItem.save();
   }
 

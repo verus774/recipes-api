@@ -1,17 +1,15 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 
 import { IngredientsService } from './ingredients.service';
-import { Ingredient } from './ingredient.model';
+import { CreateIngredientDto, Ingredient } from './ingredient.model';
 
 @Controller('ingredients')
 export class IngredientsController {
   constructor(private readonly ingredientsService: IngredientsService) {}
 
   @Post()
-  add(@Body('title') title: string): Promise<Ingredient> {
-    return this.ingredientsService.add(
-      title,
-    );
+  add(@Body() ingredient: CreateIngredientDto): Promise<Ingredient> {
+    return this.ingredientsService.add(ingredient);
   }
 
   @Get()
