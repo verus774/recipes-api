@@ -12,6 +12,11 @@ export class IngredientsController {
     return this.ingredientsService.add(ingredient);
   }
 
+  @Get(':id')
+  getProduct(@Param('id') id: string): Promise<Ingredient | never> {
+    return this.ingredientsService.get(id);
+  }
+
   @Get()
   getAll(): Promise<Ingredient[]> {
     return this.ingredientsService.getAll();

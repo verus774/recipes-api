@@ -15,6 +15,21 @@ export class IngredientsService {
     return newItem.save();
   }
 
+  async get(id: string): Promise<Ingredient | never> {
+    let item: Ingredient;
+
+    try {
+      item = await this.ingredientModel.findById(id).exec();
+    } catch (error) {
+      throw new NotFoundException('Could not find product.');
+    }
+    if (!item) {
+      throw new NotFoundException('Could not find product.');
+    }
+
+    return item;
+  }
+
   getAll(): Promise<Ingredient[]> {
     return this.ingredientModel.find().exec();
   }
