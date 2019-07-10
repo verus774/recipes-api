@@ -17,3 +17,5 @@ export interface Ingredient extends Document {
 export class CreateIngredientDto {
   readonly title: string;
 }
+
+export type UpdateIngredientDto = Partial<CreateIngredientDto>;

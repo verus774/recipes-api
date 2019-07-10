@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { CreateIngredientDto, Ingredient } from './ingredient.model';
+import { CreateIngredientDto, Ingredient, UpdateIngredientDto } from './ingredient.model';
 
 @Injectable()
 export class IngredientsService {
@@ -34,8 +34,12 @@ export class IngredientsService {
     return this.ingredientModel.find().exec();
   }
 
+  async update(id: string, updateIngredientDto: UpdateIngredientDto) {
+    return this.ingredientModel.findByIdAndUpdate(id, updateIngredientDto, { new: true });
+  }
+
   async remove(id: string): Promise<null> {
-    const result = await this.ingredientModel.deleteOne({_id: id}).exec();
+    const result = await this.ingredientModel.deleteOne({ _id: id }).exec();
     if (result.n === 0) {
       throw new NotFoundException('Could not find ingredient');
     }
