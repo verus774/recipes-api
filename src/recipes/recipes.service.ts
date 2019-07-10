@@ -12,11 +12,10 @@ export class RecipesService {
     @InjectModel('Ingredient') private readonly ingredientModel: Model<Ingredient>,
   ) {}
 
-  add(item: CreateRecipeDto): Promise<Recipe> {
+  async add(item: CreateRecipeDto): Promise<Recipe> {
     const newItem = new this.recipeModel(item);
-
-    // TODO: should return populated recipe
-    return newItem.save();
+    await newItem.save();
+    return this.recipeModel.populate(newItem, {path: 'ingredients', model: 'Ingredient'});
   }
 
   async get(id: string): Promise<Recipe | never> {
