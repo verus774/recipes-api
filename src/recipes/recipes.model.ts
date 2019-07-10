@@ -21,3 +21,8 @@ export interface Recipe extends Document {
   title: string;
   ingredients: Ingredient[];
 }
+
+export class CreateRecipeDto {
+  readonly title: string;
+  readonly ingredients: string[];
+}
