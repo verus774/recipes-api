@@ -14,17 +14,22 @@ export const RecipeSchema = new Schema({
     ref: 'Ingredient',
     required: true,
   },
+  cookedAt: {
+    type: Date,
+  },
 });
 
 export interface Recipe extends Document {
   id: string;
   title: string;
   ingredients: Ingredient[];
+  cookedAt?: Date;
 }
 
 export class CreateRecipeDto {
   readonly title: string;
   readonly ingredients: string[];
+  readonly cookedAt?: string | number;
 }
 
 export type UpdateRecipeDto = Partial<CreateRecipeDto>;
