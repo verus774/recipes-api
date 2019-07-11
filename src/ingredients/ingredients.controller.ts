@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 
 import { IngredientsService } from './ingredients.service';
 import { CreateIngredientDto, Ingredient, UpdateIngredientDto } from './ingredient.model';
+import { ValidateObjectId } from '../shared/validate-object-id.pipe';
 
 @Controller('ingredients')
 export class IngredientsController {
@@ -13,7 +14,7 @@ export class IngredientsController {
   }
 
   @Get(':id')
-  getProduct(@Param('id') id: string): Promise<Ingredient | never> {
+  getProduct(@Param('id', new ValidateObjectId()) id: string): Promise<Ingredient | never> {
     return this.ingredientsService.get(id);
   }
 
@@ -23,12 +24,12 @@ export class IngredientsController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() item: UpdateIngredientDto): Promise<Ingredient | null> {
+  async update(@Param('id', new ValidateObjectId()) id: string, @Body() item: UpdateIngredientDto): Promise<Ingredient | null> {
     return this.ingredientsService.update(id, item);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<null> {
+  remove(@Param('id', new ValidateObjectId()) id: string): Promise<null> {
     return this.ingredientsService.remove(id);
   }
 }
