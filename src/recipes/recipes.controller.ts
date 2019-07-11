@@ -14,7 +14,7 @@ export class RecipesController {
   }
 
   @Get(':id')
-  getProduct(@Param('id', new ValidateObjectId()) id: string): Promise<Recipe | never> {
+  get(@Param('id', new ValidateObjectId()) id: string): Promise<Recipe | never> {
     return this.recipesService.get(id);
   }
 

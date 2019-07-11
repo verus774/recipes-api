@@ -21,10 +21,10 @@ export class IngredientsService {
     try {
       item = await this.ingredientModel.findById(id).exec();
     } catch (error) {
-      throw new NotFoundException('Could not find product.');
+      throw new NotFoundException('Could not find ingredient.');
     }
     if (!item) {
-      throw new NotFoundException('Could not find product.');
+      throw new NotFoundException('Could not find ingredient.');
     }
 
     return item;

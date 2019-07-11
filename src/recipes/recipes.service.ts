@@ -50,7 +50,7 @@ export class RecipesService {
   async remove(id: string): Promise<never | null> {
     const result = await this.recipeModel.deleteOne({_id: id}).exec();
     if (result.n === 0) {
-      throw new NotFoundException('Could not find ingredient');
+      throw new NotFoundException('Could not find recipe');
     }
     return null;
   }
