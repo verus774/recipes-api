@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { ConfigService } from './config/config.service';
 import { IngredientsModule } from './ingredients/ingredients.module';
 import { RecipesModule } from './recipes/recipes.module';
+import { CategoriesModule } from './categories/categories.module';
 
 const configService = new ConfigService(`.env`);
 const dbUri = configService.get('DB_URI');
@@ -13,6 +14,7 @@ const dbUri = configService.get('DB_URI');
 @Module({
   imports: [
     IngredientsModule,
+    CategoriesModule,
     RecipesModule,
     MongooseModule.forRoot(dbUri, { useNewUrlParser: true }),
   ],
