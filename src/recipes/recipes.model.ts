@@ -1,6 +1,7 @@
 import { Document, Schema } from 'mongoose';
 
 import { Ingredient } from '../ingredients/ingredient.model';
+import { Category } from '../categories/category.model';
 
 export const RecipeSchema = new Schema({
   title: {
@@ -8,6 +9,10 @@ export const RecipeSchema = new Schema({
     required: true,
     unique: true,
     trim: true,
+  },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
   },
   ingredients: {
     type: [Schema.Types.ObjectId],
@@ -22,12 +27,14 @@ export const RecipeSchema = new Schema({
 export interface Recipe extends Document {
   id: string;
   title: string;
+  category: Category;
   ingredients: Ingredient[];
   cookedAt?: Date;
 }
 
 export class CreateRecipeDto {
   readonly title: string;
+  readonly category?: string;
   readonly ingredients: string[];
   readonly cookedAt?: string | number;
 }
